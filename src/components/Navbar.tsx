@@ -45,8 +45,7 @@ export function Navbar() {
 				</Button>
 				<Box sx={{display: 'flex', alignItems: 'center', ml: 2.5, mr: 1}} aria-label={`${favorites.length} favoritos`}>
 					<Badge
-						badgeContent={favorites.length ? favorites.length : ''}
-						showZero
+						badgeContent={favorites.length}
 						sx={{'& .MuiBadge-badge': {bgcolor: '#ffcb05', color: '#1d3c6e', fontWeight: 700}}}
 					>
 						<FavoriteIcon sx={{color: '#e3350d'}} />
