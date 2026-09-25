@@ -2,8 +2,11 @@
 
 import {usePokemonList} from '@/hooks/usePokemonList';
 import {useState} from 'react';
-import {Box, Card, Pagination, Skeleton, Stack, Typography} from '@mui/material';
+import {Box, Card, IconButton, Pagination, Skeleton, Stack, Typography} from '@mui/material';
 import CatchingPokemonIcon from '@mui/icons-material/CatchingPokemon';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import {useFavoriteStore} from '@/store/useFavoriteStore';
 
 const gridSx = {
 	display: 'grid',
@@ -18,6 +21,9 @@ export default function PokemonList() {
 	const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
 		setPage(value);
 	};
+
+	const toggleFavorite = useFavoriteStore((s) => s.toggleFavorite);
+	const favorites = useFavoriteStore((s) => s.favorites);
 
 	if (isLoading) {
 		return (
@@ -38,6 +44,7 @@ export default function PokemonList() {
 								key={pokemon.name}
 								variant="outlined"
 								sx={{
+									position: 'relative',
 									p: 2,
 									borderRadius: 3,
 									textAlign: 'center',
@@ -59,6 +66,21 @@ export default function PokemonList() {
 								>
 									<CatchingPokemonIcon sx={{fontSize: 40, color: '#2a75bb', opacity: 0.4}} />
 								</Box>
+								<IconButton
+									onClick={() => toggleFavorite(pokemon.name)}
+									aria-label={favorites.includes(pokemon.name) ? 'Quitar de favoritos' : 'Añadir a favoritos'}
+									size="small"
+									sx={{
+										position: 'absolute',
+										top: 8,
+										right: 8,
+										color: favorites.includes(pokemon.name) ? '#e3350d' : 'grey.400',
+										transition: 'transform 150ms',
+										'&:hover': {color: '#e3350d', transform: 'scale(1.15)'},
+									}}
+								>
+									{favorites.includes(pokemon.name) ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+								</IconButton>
 								<Typography sx={{fontWeight: 600, textTransform: 'capitalize', color: '#1d3c6e'}}>
 									{pokemon.name}
 								</Typography>

@@ -1,11 +1,15 @@
 'use client';
-import {AppBar, Toolbar, Typography, Button} from '@mui/material';
+import {useFavoriteStore} from '@/store/useFavoriteStore';
+import {AppBar, Badge, Box, Toolbar, Typography, Button} from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import Link from 'next/link';
 import {usePathname} from 'next/navigation';
 export function Navbar() {
 	const pathName = usePathname();
 	const isHome = pathName === '/';
 	const isPokemon = pathName.startsWith('/pokemon');
+
+	const favorites = useFavoriteStore((s) => s.favorites);
 
 	return (
 		<AppBar position="static" sx={{bgcolor: '#1d3c6e'}}>
@@ -39,6 +43,15 @@ export function Navbar() {
 				>
 					Listado
 				</Button>
+				<Box sx={{display: 'flex', alignItems: 'center', ml: 2.5, mr: 1}} aria-label={`${favorites.length} favoritos`}>
+					<Badge
+						badgeContent={favorites.length ? favorites.length : ''}
+						showZero
+						sx={{'& .MuiBadge-badge': {bgcolor: '#ffcb05', color: '#1d3c6e', fontWeight: 700}}}
+					>
+						<FavoriteIcon sx={{color: '#e3350d'}} />
+					</Badge>
+				</Box>
 			</Toolbar>
 		</AppBar>
 	);
