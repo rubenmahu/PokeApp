@@ -1,5 +1,7 @@
+'use client';
 import {Container, Typography} from '@mui/material';
 import LinkButton from '../components/LinkButton';
+import NewsletterForm from '@/components/NewsletterForm';
 
 export default function Home() {
 	return (
@@ -10,6 +12,9 @@ export default function Home() {
 			</Container>
 			<Container maxWidth={false} sx={{textAlign: 'center', bgcolor: '#f5f5f5', py: 4}}>
 				<LinkButton href="/pokemon"> Listado </LinkButton>
+			</Container>
+			<Container maxWidth={false} sx={{textAlign: 'center', bgcolor: '#f5f5f5', py: 4}}>
+				<NewsletterForm></NewsletterForm>
 			</Container>
 		</>
 	);
